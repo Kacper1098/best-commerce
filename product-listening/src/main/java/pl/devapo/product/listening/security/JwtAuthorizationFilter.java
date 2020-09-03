@@ -22,7 +22,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Component
-//@Order(3)
+@Order(3)
 @RequiredArgsConstructor
 class JwtAuthorizationFilter extends OncePerRequestFilter {
     public static final Logger log = LoggerFactory.getLogger(JwtAuthorizationFilter.class);

@@ -21,4 +21,5 @@ public class SecurityConfigProperties {
     private String jwtSecret;
     private String tokenHeader;
     private String tokenPrefix;
+    private Long tokenTtlSeconds;
 }

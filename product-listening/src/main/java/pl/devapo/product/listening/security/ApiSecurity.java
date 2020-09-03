@@ -1,7 +1,6 @@
 package pl.devapo.product.listening.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,8 +31,8 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/products/**").hasAnyAuthority("USER", "ROLE_USER")
-                .anyRequest().permitAll();
+                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**").anonymous()
+                .antMatchers("/products").hasAuthority("USER")
+                .anyRequest().authenticated();
     }
-
 }

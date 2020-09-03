@@ -21,12 +21,14 @@ class MerchantService {
 
     public Long create(MerchantDto merchantDto) {
         Merchant merchant = this.encodeMerchantPassword(merchantDto.toEntity());
-        merchantEventPublisher.publish(merchantDto.fromEntity(merchant));
         try {
-            return merchantRepository.save(merchant).getId();
-        } catch (Exception exception) {
-            log.error("Could not save to database!" + exception);
-            return null;
+            Long id = merchantRepository.save(merchant).getId();
+            merchantEventPublisher.publish(merchantDto.fromEntity(merchant));
+            return id;
+        }
+        catch (Exception exception) {
+            log.error("Could not save to database!", exception);
+            throw exception;
         }
     }
 
